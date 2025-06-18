@@ -1,38 +1,36 @@
-Parallel File Encryption/Decryption Tool
-A high-performance C++ utility for secure file encryption and decryption using multi-processing, shared memory, and synchronization mechanisms.
+# Parallel File Encryptor/Decryptor in C++
 
-Features
-Parallel Processing: Utilizes multi-processing (fork, exec, wait) to distribute encryption/decryption tasks efficiently.
+## 📄 Description
 
-Shared Memory (mmap): Enables fast inter-process communication (IPC) for high-speed data access.
+This project is a **C++-based tool** for performing **file encryption and decryption in parallel** using multiple processes. It focuses on **process-level concurrency**, **shared memory communication** (`mmap`), and uses **synchronization mechanisms** like **mutex locks** and **semaphores** to maintain thread-safe operations.
 
-Thread-Safe Operations: Implements mutex locks and semaphores to prevent race conditions during file I/O.
+The tool is designed with the goal of improving performance when handling **large files** by dividing work across multiple child processes, each handling a specific portion of the file in parallel.
 
-Optimized Large File Handling: Splits workloads across child processes to maximize CPU utilization and reduce processing time.
+---
 
-Smart Pointers (RAII): Ensures automatic memory management, preventing leaks and improving stability.
+## 🧩 Key Features
 
-Secure File I/O: Validates file integrity and includes robust exception handling for error recovery.
+- **Parallel processing** using `fork()` to spawn child processes.
+- **Shared memory** using `mmap()` for inter-process communication.
+- **Synchronization** using `pthread_mutex_t` and `sem_t` to ensure exclusive access to shared data.
+- **Secure file I/O**, exception handling, and proper resource cleanup.
+- **Custom task management** for controlling file segments and distributing load.
+- **Smart pointers** (`std::unique_ptr`) used for safer memory management in non-shared regions.
+- **POSIX-compliant** design targeting Linux-based systems.
 
-Custom Process Scheduling: Balances CPU load across processes for optimal performance.
+---
 
-Technical Implementation
-1. Multi-Processing Architecture
-Uses POSIX APIs (fork(), exec(), wait()) to spawn child processes for parallel task execution.
+## 🏗️ Build Instructions
 
-Each child process handles a chunk of the file, improving throughput for large files.
+### Requirements
 
-2. Shared Memory & Synchronization
-mmap for Shared Memory: Allows processes to read/write encrypted data without costly IPC overhead.
+- A POSIX-compliant OS (Linux/macOS)
+- C++17-compatible compiler (`g++`, `clang++`)
+- `make` or `cmake` (optional but recommended)
 
-Mutex Locks & Semaphores: Ensures safe concurrent access to shared resources (file buffers, status flags).
+### Compilation
 
-3. Performance Optimization
-Dynamic Task Distribution: Assigns file chunks to idle processes for load balancing.
+To build using a simple `Makefile`:
 
-Smart Pointers (std::unique_ptr, std::shared_ptr): Automates memory cleanup, reducing manual management errors.
-
-4. Security & Error Handling
-File Integrity Checks: Validates input/output files before processing.
-
-Exception Handling: Catches and logs errors (file access failures, memory allocation issues).
+```bash
+make

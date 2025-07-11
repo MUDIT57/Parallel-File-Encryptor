@@ -12,4 +12,4 @@ def makeFiles(path):
             file.write(random_string)
 
 if __name__ == "__main__":
-    makeFiles("test")
+    makeFiles("test") 

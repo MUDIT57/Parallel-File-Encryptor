@@ -47,6 +47,5 @@ int main(int argc, char* argv[]) {
     } catch (const fs::filesystem_error& ex) {
         std::cout << "Filesystem error: " << ex.what() << std::endl;
     }
-
     return 0;
 }
